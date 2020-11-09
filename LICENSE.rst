@@ -18,12 +18,12 @@ This repository is subject to the two licenses described below.
 
     Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files, to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the software, and to permit persons to whom the software is furnished to do so, subject to the following conditions:
 
-        A) All copies of this software, in whole or in part, and all products that incorporate this software, in whole or in part, in any format (including source code, byte code, binary, compiled, transpiled, translated, ported, and modified) shall include the following item(s):
+        **A:** All copies of this software, in whole or in part, and all products that incorporate this software, in whole or in part, in any format (including source code, byte code, binary, compiled, transpiled, translated, ported, and modified) shall include the following item(s):
 
             | 1. The above attribution.
             | 2. This license in its entirety.
 
-        B) All services that incorporate this software, in whole or in part, shall communicate the above attribution to the recipient of those services. If some aspect of the service can be relicensed to a third party, it will be considered a product and subject to the terms described in section A.
+        **B:** All services that incorporate this software, in whole or in part, shall communicate the above attribution to the recipient of those services. If some aspect of the service can be relicensed to a third party, it will be considered a product and subject to the terms described in section A.
 
     The granted permissions described above may be made more restrictive by adding amendments to the end of this license.
 
