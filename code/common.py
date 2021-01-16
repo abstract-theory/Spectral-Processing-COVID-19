@@ -46,6 +46,7 @@ This data is subject to the terms of use as set forth by the entity named above 
 
 import os
 import sys
+import argparse
 from datetime import datetime, timedelta
 import numpy as np
 import matplotlib.pyplot as plt
@@ -229,8 +230,9 @@ def apply_spectrum(x, H):
     y = yb_padded[:len(x)]
     return y
 
-def cmd_line_invocation(argv, func):
-    """Helper function for running modules independently.
+
+def cmd_line_invocation(func):
+    """Helper function for passing command-line options to modules.
 
     Display all plots:
         python3 file_name.py
@@ -238,23 +240,20 @@ def cmd_line_invocation(argv, func):
     Save plots:
         python3 file_name.py -s
 
-    Save plots and do not display them:
-        python3 file_name.py -s -h
+    Do not display plots on screen:
+        python3 file_name.py -q
     """
 
-    argv = sys.argv
-    kw = {}
-    for n in range(len(argv)):
-        if argv[n] == "-s":
-            kw['save'] = True
-        elif argv[n] == "-h":
-            kw['show'] = False
+    parser = argparse.ArgumentParser(description='Create all plots from the paper.')
+    parser.add_argument("-s", action="store_true", help="Save plots as SVG files.")
+    parser.add_argument("-q", action="store_true", help="Quiet mode. Do not display plots on the screen.")
 
-    func(**kw)
+    args = parser.parse_args()
+    func(show=(args.q==False), save=args.s)
 
     print()
-    if 'show' not in kw:
+    if args.q == False:
         input("Press ENTER to close plots.")
-        print("Add the \"-h\" option to hide plots.")
-    if 'save' not in kw:
-        print("Add the \"-s\" option to write plots to files.")
+    if args.q == False and args.s == False:
+        print("Add the \"--help\" option to for usage details.")
+

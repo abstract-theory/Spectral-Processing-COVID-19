@@ -104,4 +104,4 @@ if __name__ == "__main__":
     Save plots and do not display them:
         python3 main.py -s -h
     """
-    c.cmd_line_invocation(c.sys.argv, main)
+    c.cmd_line_invocation(main)

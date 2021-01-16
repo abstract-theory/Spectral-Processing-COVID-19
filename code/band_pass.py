@@ -140,5 +140,5 @@ def main(close=True, show=True, save=False, file_names=("Fig10.pdf", "Fig11.pdf"
 
 
 if __name__ == "__main__":
-    c.cmd_line_invocation(c.sys.argv, main)
+    c.cmd_line_invocation(main)
 

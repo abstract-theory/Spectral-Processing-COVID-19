@@ -142,5 +142,5 @@ def main(close=True, show=True, save=False, rt="deaths", region="global", countr
 
 
 if __name__ == "__main__":
-    c.cmd_line_invocation(c.sys.argv, main)
+    c.cmd_line_invocation(main)
 
