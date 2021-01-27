@@ -12,18 +12,27 @@ This code was used for the below research paper to both produce plots and implem
 Generating The Plots
 ********************
 
-To generate all plots and show them on the monitor, run the script ``main.py``. For example,
+To generate all 15 plots and display them on your monitor, run the script ``main.py``. For example,
 
 .. code-block:: sh
 
     python3 main.py
 
+If there are display problems, instead save the plots by running,
+
+.. code-block:: sh
+
+    python3 main.py -sq
+
+The plots will be written to the ``figures`` directory in your local copy of this repository. The display problems are related to Matplotlib's back-end, and, more specifically, the ``False`` in the ``plt.show(block=False)`` statements. There are various approaches for resolving this issue.
+
+
 **Command Line Options:**
 
     | ``-s``    Write the plots to PDF files.
-    | ``-h``    Do not display the plots on screen.
+    | ``-q``    Do not display the plots on screen.
 
-The script ``main.py`` calls eight other sub-modules to generate the plots. These can be called independently using the same method as that for ``main.py``. The sub-modules are listed below.
+The script ``main.py`` calls eight other sub-modules to generate the plots. Alternatively, sub-modules can be called independently using the same method as that for ``main.py``. The sub-modules are listed below.
 
     | spectrum.py
     | time_spectrum.py

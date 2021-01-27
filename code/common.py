@@ -245,7 +245,7 @@ def cmd_line_invocation(func):
     """
 
     parser = argparse.ArgumentParser(description='Create all plots from the paper.')
-    parser.add_argument("-s", action="store_true", help="Save plots as SVG files.")
+    parser.add_argument("-s", action="store_true", help="Save plots as PDF files.")
     parser.add_argument("-q", action="store_true", help="Quiet mode. Do not display plots on the screen.")
 
     args = parser.parse_args()
