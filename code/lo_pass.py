@@ -60,14 +60,19 @@ def main(close=True, show=True, save=False, file_names=("Fig6.pdf", "Fig7.pdf", 
 
     m_ave = seven_day_ave_manual(deaths_padded)[pad_sz-3:-(pad_sz-3)] # moving average
 
+    fft_sz = 2
+    max_l = max(1024, len(deaths_padded))
+    while fft_sz < max_l:
+        fft_sz *= 2
+
     wp, ws = 1/9, 1/8
     y_el_1 = ellip_bf(deaths_padded, wp, ws)[pad_sz:-pad_sz] # elliptic
-    H = ellip_spec(wp, ws, 1024)
+    H = ellip_spec(wp, ws, fft_sz)
     y_fft_1 = c.apply_spectrum(deaths_padded, H)[pad_sz:-pad_sz] # FFT
 
     wp, ws = 1/21, 1/19
     y_el_2 = ellip_bf(deaths_padded, wp, ws)[pad_sz:-pad_sz] # elliptic
-    H = ellip_spec(wp, ws, 1024)
+    H = ellip_spec(wp, ws, fft_sz)
     y_fft_2 = c.apply_spectrum(deaths_padded, H)[pad_sz:-pad_sz] # FFT
 
 
@@ -85,7 +90,7 @@ def main(close=True, show=True, save=False, file_names=("Fig6.pdf", "Fig7.pdf", 
     ax1.set(xlabel='time [days]', ylabel='daily new deaths')
     ax1.get_yaxis().set_major_formatter(ticker.FuncFormatter(y_lables))
     ax1.grid(True, alpha=0.2)
-    ax1.axis([min(x), max(x), 0, 2500])
+    ax1.axis([min(x), max(x), 0, 4500])
     ax1.legend(loc='upper right', prop={'size': 9}, handlelength=2)
     plt.tight_layout()
 
@@ -101,7 +106,7 @@ def main(close=True, show=True, save=False, file_names=("Fig6.pdf", "Fig7.pdf", 
     ax2.set(xlabel='time [days]', ylabel='daily new deaths')
     ax2.get_yaxis().set_major_formatter(ticker.FuncFormatter(y_lables))
     ax2.grid(True, alpha=0.2)
-    ax2.axis([min(x), max(x), 0, 2500])
+    ax2.axis([min(x), max(x), 0, 4500])
     ax2.legend(loc='upper right', prop={'size': 9}, handlelength=2)
     plt.tight_layout()
 
@@ -117,7 +122,7 @@ def main(close=True, show=True, save=False, file_names=("Fig6.pdf", "Fig7.pdf", 
     ax4.set(xlabel='time [days]', ylabel='daily new deaths')
     ax4.get_yaxis().set_major_formatter(ticker.FuncFormatter(y_lables))
     ax4.grid(True, alpha=0.2)
-    ax4.axis([min(x), max(x), 0, 2500])
+    ax4.axis([min(x), max(x), 0, 4500])
     ax4.legend(loc='upper right', prop={'size': 9}, handlelength=2)
     plt.tight_layout()
 

@@ -49,9 +49,14 @@ def main(close=True, show=True, save=False, file_names=("Fig9.pdf",)):
     cases = c.get_data("cases", "US")
     cases_padded, pad_sz = c.extrapolate(cases)
 
+    fft_sz = 2
+    max_l = max(1024, len(cases_padded))
+    while fft_sz < max_l:
+        fft_sz *= 2
+
     f0, f1 = 1/7.0, 1/8.0
     y_el_1 = ellip_bf(cases_padded, f0, f1)[pad_sz:-pad_sz]
-    H = ellip_spec(f0, f1, 1024)
+    H = ellip_spec(f0, f1, fft_sz)
     y_fft_1 = c.apply_spectrum(cases_padded, H)[pad_sz:-pad_sz]
 
     start = 40
@@ -68,7 +73,7 @@ def main(close=True, show=True, save=False, file_names=("Fig9.pdf",)):
     ax3.set(xlabel='time [days]', ylabel='daily new cases')
     ax3.get_yaxis().set_major_formatter(ticker.FuncFormatter(y_label))
     ax3.grid(True, alpha=0.2)
-    ax3.axis([min(x), max(x), -15000, 80000])
+    ax3.axis([min(x), max(x), -150000, 800000])
     ax3.legend(loc='upper left', prop={'size': 9}, handlelength=2)
     plt.tight_layout()
 

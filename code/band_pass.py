@@ -53,12 +53,16 @@ def main(close=True, show=True, save=False, file_names=("Fig10.pdf", "Fig11.pdf"
     cases_padded, pad_sz = c.extrapolate(cases)
     deaths_padded, pad_sz = c.extrapolate(deaths)
 
-    numPts = 1024
+
+    fft_sz = 2
+    max_l = max(1024, len(deaths_padded))
+    while fft_sz < max_l:
+        fft_sz *= 2
 
     # first plot
     wp, ws = [1/8.0, 1/6.0], [1/9.0, 1/5.0]
     y_el_1 = ellip_bf(cases_padded, wp, ws)[pad_sz:-pad_sz] # elliptic
-    H_1 = ellip_spec(wp, ws, numPts)
+    H_1 = ellip_spec(wp, ws, fft_sz)
     y_fft_1 = c.apply_spectrum(cases_padded, H_1)[pad_sz:-pad_sz] # FFT
 
     start1 = 40
@@ -77,13 +81,13 @@ def main(close=True, show=True, save=False, file_names=("Fig10.pdf", "Fig11.pdf"
     ax1.legend(loc='upper left', prop={'size': 9}, handlelength=2)
     ax1.set(xlabel='time [days]')
     ax1.set(ylabel='daily new cases')
-    ax1.axis([0, max(y_fft_1[start1:].shape)-1, -15000, 80000])
+    ax1.axis([0, max(y_fft_1[start1:].shape)-1, -150000, 800000])
     plt.tight_layout()
 
     # second plot
     wp, ws = [1/19, 1/9.0], [1/21.0, 1/8.0]
     y_el_2 = ellip_bf(deaths_padded, wp, ws)[pad_sz:-pad_sz] # elliptic
-    H_2 = ellip_spec(wp, ws, numPts)
+    H_2 = ellip_spec(wp, ws, fft_sz)
     y_fft_2 = c.apply_spectrum(deaths_padded, H_2)[pad_sz:-pad_sz]
 
     start3 = 100
@@ -102,15 +106,15 @@ def main(close=True, show=True, save=False, file_names=("Fig10.pdf", "Fig11.pdf"
     ax3.legend(loc='upper right', prop={'size': 9}, handlelength=2)
     ax3.set(xlabel='time [days]')
     ax3.set(ylabel='daily new deaths')
-    ax3.axis([0, max(y_fft_2[start3:].shape)-1, -250, 2500])
+    ax3.axis([0, max(y_fft_2[start3:].shape)-1, -2500, 25000])
     plt.tight_layout()
 
     # third plot - To check if second plot contains any energy leaking
     # in from bandwidth associated with the seven-day oscillation.
-    f = np.arange(0, numPts) / numPts
+    f = np.arange(0, fft_sz) / fft_sz
     d_dt_deaths = c.deriv_fft(deaths)
-    Z = np.abs(np.fft.fft(d_dt_deaths, n=int(numPts))/numPts)
-    norm_val = np.max(Z[int(numPts*0.1+0.5):int(numPts*0.5+0.5)]) # normalize to max value above 0.1 and 0.5
+    Z = np.abs(np.fft.fft(d_dt_deaths, n=int(fft_sz))/fft_sz)
+    norm_val = np.max(Z[int(fft_sz*0.1+0.5):int(fft_sz*0.5+0.5)]) # normalize to max value above 0.1 and 0.5
     Z_deaths = Z/norm_val
     dz = np.zeros(len(f))
 
